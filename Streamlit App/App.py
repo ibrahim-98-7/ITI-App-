@@ -63,9 +63,8 @@ def set_background(png_file):
     """
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Try to set background
-set_background("https://github.com/ibrahim-98-7/ITI-App-/blob/main/Streamlit%20App/ITI_Background17601951402362703.png")
 
+set_background("https://raw.githubusercontent.com/ibrahim-98-7/ITI-App-/main/Streamlit%20App/ITI_Background17601951402362703.png")
 # ------------------------------
 # UNIFIED CSS STYLING
 # ------------------------------
@@ -149,7 +148,7 @@ def get_base64_image(image_path):
         with open(image_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
 
-logo_path = "https://github.com/ibrahim-98-7/ITI-App-/blob/main/Streamlit%20App/Gemini_Generated_Image_pwn1v3p13472503787887624.png"
+logo_path = "https://raw.githubusercontent.com/ibrahim-98-7/ITI-App-/main/Streamlit%20App/Gemini_Generated_Image_pwn1v3p13472503787887624.png"
 logo_base64 = get_base64_image(logo_path)
 
 # --- Header ---
@@ -723,6 +722,7 @@ with SSRS_Report:
     components.html(iframe_html, height=870)
 
     st.info("This SSRS report is embedded directly from the Power BI Service (Paginated Report).")
+
 
 
 
