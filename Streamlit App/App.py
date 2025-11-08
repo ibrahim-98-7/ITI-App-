@@ -28,14 +28,24 @@ st.set_page_config(
 # BACKGROUND IMAGE SETUP
 # ------------------------------
 def get_base64_of_bin_file(bin_file):
-    # Check if file exists before opening
-    if not os.path.exists(bin_file):
-        st.error(f"Error: Background image file not found at {bin_file}")
-        return None
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
+    if bin_file.startswith(("http://", "https://")):
+        # If it's a URL, download the content
+        try:
+            response = requests.get(bin_file)
+            response.raise_for_status() # Raise exception for bad status codes
+            data = response.content
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error: Could not download background image from URL: {e}")
+            return None
+    else:
+        # If it's a local path
+        if not os.path.exists(bin_file):
+            st.error(f"Error: Background image file not found at {bin_file}")
+            return None
+        with open(bin_file, 'rb') as f:
+            data = f.read()
 
+    return base64.b64encode(data).decode()
 def set_background(png_file):
     bin_str = get_base64_of_bin_file(png_file)
     if bin_str is None:
@@ -123,11 +133,21 @@ except ImportError:
 # LOGO SETUP
 # ------------------------------
 def get_base64_image(image_path):
-    if not os.path.exists(image_path):
-        st.error(f"Error: Logo file not found at {image_path}")
-        return ""
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
+    if image_path.startswith(("http://", "https://")):
+        try:
+            response = requests.get(image_path)
+            response.raise_for_status()
+            return base64.b64encode(response.content).decode()
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error: Could not download logo from URL: {e}")
+            return ""
+    else:
+        # Local file path logic
+        if not os.path.exists(image_path):
+            st.error(f"Error: Logo file not found at {image_path}")
+            return ""
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
 
 logo_path = "Gemini_Generated_Image_pwn1v3p13472503787887624.png"
 logo_base64 = get_base64_image(logo_path)
