@@ -1,0 +1,12 @@
+streamlit
+pandas
+pathlib
+tempfile
+requests
+base64
+os
+re
+json
+time
+random
+pbixray
