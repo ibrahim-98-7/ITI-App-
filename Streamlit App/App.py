@@ -149,7 +149,7 @@ def get_base64_image(image_path):
         with open(image_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
 
-logo_path = "Gemini_Generated_Image_pwn1v3p13472503787887624.png"
+logo_path = "https://github.com/ibrahim-98-7/ITI-App-/blob/main/Streamlit%20App/Gemini_Generated_Image_pwn1v3p13472503787887624.png"
 logo_base64 = get_base64_image(logo_path)
 
 # --- Header ---
@@ -723,5 +723,6 @@ with SSRS_Report:
     components.html(iframe_html, height=870)
 
     st.info("This SSRS report is embedded directly from the Power BI Service (Paginated Report).")
+
 
 
